@@ -24,11 +24,11 @@ $ drutil status
       Book Type: DVD-ROM (v1)
 ```
 
-Note the device _**Name**_ (`/dev/disk4`) and the _**Space Used**_ (`blocks: 762352`).
+Note the device _**Name**_ (`/dev/disk4`).
 
-## Confirmation CD/DVD Information (Optional)
+> Note: _**Space Used**_ is a **Disc Size** not **Volume Size**.
 
-This sequence is optional for confirmation.
+## Confirmation CD/DVD Information
 
 Use `diskutil` for additional information.
 
@@ -80,17 +80,26 @@ $ diskutil information /dev/disk4
    Optical Media Erasable:    No
 ```
 
-Note the _**Allocation Block Size**_ (`2048 Bytes`) and the _**Volume Total Space**_ (`exactly 3049408 512-Byte-Units`).
+Note the _**Allocation Block Size**_ (`2048 Bytes`) and the _**Volume Total Space**_ (`1561296896 Bytes` or `exactly 3049408 512-Byte-Units`).
 
 In most of case, _**Allocation Block Size**_  should be `2048 Bytes` (ISO 9660 standard).
 
-And _**Volume Total Space**_ must be matched with _**Space Used**_ value got from above.
+Note that, _**Disc Size**_ may not eaqual with _**Volume Total Space**_. 
 
-> _**Volume Total Space**_ x 512 == _**Space Used**_ x 2048
+We need a _**Volume Total Space**_ not a _**Disc Size**_.
+
+With a value of the _**Volume Total Space**_, we calculate a number of block based on `_**Allocation Block Size**_-Byte-Units`.
+
+Simply dvide _**Volume Total Space**_ value with _**Allocation Block Size**_.
 
 In this case,
 
-> 3049408 x 512 == 762352 * 2048 == 1561296896 == about 1.56 GB == about 1.45 GiB
+1. 3049308 x 512 = 1561296896
+1. 1561296896 / 2048 = 762352
+
+We now know that, a number of blocks of our disc is 762352 2048-byte-units.
+
+We will use this value(762352) when dump our CD/DVD.
 
 ## Dump your CD/DVD
 
@@ -111,7 +120,7 @@ $ dd if=/dev/disk4 of=output.iso bs=2048 count=762352 status=progress
 1. Change a value of `if=` option to your device name,
 1. Change a value of `of=` option to output file name that you want with `.iso` extension
 1. Fix a value of `bs=` to `2048` or you can change it to _**Allocation Block Size**_ value.
-1. Use _**Space Used**_ value to `count=` option or if you changed `bs=` value, then you should calculate this value with below formula.
+1. Depends on `bs=` value, you should calculate this value with below formula.
    > _**Volume Total Space**_ x 512 / _**Allocation Block Size**_
 
    For example, in this case, `3049408 x 512 / 2048 = 762352`: So, use `count=762352`
