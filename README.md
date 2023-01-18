@@ -156,4 +156,4 @@ $ diskutil mountDisk /dev/disk4
 
 Done!!
 
-> Note: If you want dump multiple volume(s), you should use `skip=` option: note that, a value of `skip=` also number of blokcs  based on _**Allocation Block Size-Byte-Units**_.
+> Note: If you want dump multiple volume(s), you should use `skip=` option for _offset_: note that, a value of `skip=` also number of blokcs  based on _**Allocation Block Size-Byte-Units**_.
