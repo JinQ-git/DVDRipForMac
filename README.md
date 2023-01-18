@@ -109,7 +109,7 @@ Note that, _**Disc Size**_ may not eaqual with _**Volume Total Space**_.
 
 We need a _**Volume Total Space**_ not a _**Disc Size**_.
 
-With a value of the _**Volume Total Space**_, we calculate a number of block based on _**Allocation Block Size-Byte-Units**_.
+With a value of the _**Volume Total Space**_, we calculate a number of blocks based on _**Allocation Block Size-Byte-Units**_.
 
 Simply dvide _**Volume Total Space**_ value with _**Allocation Block Size**_.
 
@@ -155,3 +155,5 @@ $ diskutil mountDisk /dev/disk4
 ```
 
 Done!!
+
+> Note: If you want dump multiple volume(s), you should use `skip=` option: note that, a value of `skip=` also number of blokcs  based on _**Allocation Block Size-Byte-Units**_.
