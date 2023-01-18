@@ -2,7 +2,7 @@
 
 Information about create ISO image from CD/DVD on MacOS.
 
-I also make [`ripdvd.sh` script file](https://github.com/JinQ-git/DVDRipForMac/blob/main/script/ripdvd.sh) for convinence in [`script`](https://github.com/JinQ-git/DVDRipForMac/blob/main/script) directory.
+I also make [`ripdvd.sh` script file](https://github.com/JinQ-git/DVDRipForMac/blob/main/script/ripdvd.sh) & [`ripdvdvolume.sh` script file](https://github.com/JinQ-git/DVDRipForMac/blob/main/script/ripdvdvolume.sh) for convinence in [`script`](https://github.com/JinQ-git/DVDRipForMac/blob/main/script) directory.
 
 ## Get CD/DVD information for dump
 
@@ -28,7 +28,28 @@ Note the device _**Name**_ (`/dev/disk4`).
 
 > Note: _**Space Used**_ is a **Disc Size** not **Volume Size**.
 
-## Confirmation CD/DVD Information
+## 1. Dump Total CD/DVD
+
+When you want dump your CD/DVD not only Volume(s) but also entire Disc, try follow sequence.
+
+1. Unmount your drive.
+1. Simply use `dd` command.
+1. Mount your drive again.
+
+```
+$ diskutil unmountDisk /dev/disk4
+$ dd if=/dev/disk4 of=output.iso status=progress
+$ diskutil mountDisk /dev/disk4
+```
+
+> You should change `/dev/disk4` part, from above commands, to your **Device Name** that is got from above sequence.
+
+> You may change `output.iso` part to yout own name what you want.
+
+
+## 2. Dump First Volume of CD/DVD
+
+### Confirmation CD/DVD Information
 
 Use `diskutil` for additional information.
 
@@ -101,7 +122,7 @@ We now know that, a number of blocks of our disc is 762352 2048-byte-units.
 
 We will use this value(762352) when dump our CD/DVD.
 
-## Dump your CD/DVD
+### Dump your CD/DVD
 
 Before dump your CD/DVD, you should unmount your drive first.
 
