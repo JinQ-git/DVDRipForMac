@@ -118,7 +118,7 @@ In this case,
 1. 3049308 x 512 = 1561296896
 1. 1561296896 / 2048 = 762352
 
-We now know that, a number of blocks of our disc is 762352 2048-byte-units.
+We now know that, a number of blocks of our disc is 762352 2048-Byte-Units.
 
 We will use this value(762352) when dump our CD/DVD.
 
